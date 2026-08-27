@@ -1,16 +1,21 @@
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
+import CallyIntroduction from "@/components/CallyIntroduction";
+import Closing from "@/components/Closing";
+import EnquiryForm from "@/components/EnquiryForm";
+import ExperienceSection from "@/components/ExperienceSection";
+import Hero from "@/components/Hero";
+import JourneySection from "@/components/JourneySection";
+import PrivatePortalSection from "@/components/PrivatePortalSection";
 
-export default async function Page() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
-  const { data: todos } = await supabase.from("todos").select();
-
+export default function Page() {
   return (
-    <ul>
-      {todos?.map((todo) => (
-        <li key={todo.id}>{todo.name}</li>
-      ))}
-    </ul>
+    <main>
+      <Hero />
+      <CallyIntroduction />
+      <JourneySection />
+      <PrivatePortalSection />
+      <ExperienceSection />
+      <EnquiryForm />
+      <Closing />
+    </main>
   );
 }
