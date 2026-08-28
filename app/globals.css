@@ -1020,20 +1020,20 @@ textarea[aria-invalid="true"] {
 .portal-brand {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 3vw, 1.5rem);
+  gap: clamp(1.25rem, 3vw, 2rem);
 }
 
 .portal-logo {
   flex: 0 0 auto;
-  width: clamp(4.5rem, 10vw, 7rem);
+  width: clamp(8.5rem, 16vw, 13rem);
   height: auto;
   filter: drop-shadow(0 0.8rem 1.8rem rgba(6, 2, 8, 0.42));
 }
 
 .portal-header h1 {
-  max-width: 13ch;
-  font-size: clamp(3.2rem, 8vw, 7.5rem);
-  line-height: 0.88;
+  max-width: 22ch;
+  font-size: clamp(1.9rem, 4vw, 3.4rem);
+  line-height: 1.02;
 }
 
 .portal-status,
