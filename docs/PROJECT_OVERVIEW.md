@@ -93,7 +93,7 @@ OAuth callback route:
 
 The confirmation route accepts Supabase `code` links and `token_hash` links. On success it redirects to the requested relative `next` path, usually `/portal`, `/access?continue=enquiry`, or `/access/reset-password`.
 
-The Google OAuth button uses Supabase's configured Google provider and redirects through `/auth/callback`. If the user was saving an enquiry, the callback returns them to `/access?continue=enquiry` so the existing localStorage draft submission flow can complete.
+The Google OAuth button uses Supabase's configured Google provider and redirects to the exact app callback URL at `/auth/callback`. If the user was saving an enquiry, a short-lived same-site cookie carries `/access?continue=enquiry` through the OAuth round trip so the existing localStorage draft submission flow can complete after `/auth/callback` exchanges the code.
 
 Password reset requests use `/auth/confirm` as the Supabase recovery redirect and then land on `/access/reset-password`, where a valid recovery session can update the password.
 

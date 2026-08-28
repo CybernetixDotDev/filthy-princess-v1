@@ -19,6 +19,8 @@ import { createClient } from "@/utils/supabase/client";
 
 type AccessMode = "signin" | "signup" | "reset";
 
+const OAUTH_NEXT_COOKIE = "filthyprincess_oauth_next";
+
 type AccessFormProps = {
   continueTo: "enquiry" | null;
   initialMessage: string | null;
@@ -96,9 +98,11 @@ export default function AccessForm({
 
     const next =
       continueTo === "enquiry" ? "/access?continue=enquiry" : "/portal";
-    const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(
+    const redirectTo = `${window.location.origin}/auth/callback`;
+    const secureCookie = window.location.protocol === "https:" ? "; Secure" : "";
+    document.cookie = `${OAUTH_NEXT_COOKIE}=${encodeURIComponent(
       next,
-    )}`;
+    )}; Path=/; Max-Age=600; SameSite=Lax${secureCookie}`;
 
     try {
       const supabase = createClient();

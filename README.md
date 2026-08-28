@@ -27,16 +27,28 @@ Do not add a service role key, private wallet key, seed phrase, or recovery phra
 
 Enable Google in Supabase Dashboard -> Authentication -> Providers -> Google, then store the Google OAuth client ID and secret there. Do not add Google secrets to this app's environment variables.
 
+Set the Supabase Auth Site URL to:
+
+```bash
+https://www.filthyprincesss.com
+```
+
 Add these app redirect URLs in Supabase Authentication URL Configuration:
 
 ```bash
 http://localhost:3000/auth/callback
 http://localhost:3000/auth/confirm
-https://<your-production-domain>/auth/callback
-https://<your-production-domain>/auth/confirm
+https://www.filthyprincesss.com/auth/callback
+https://www.filthyprincesss.com/auth/confirm
 ```
 
-In Google Cloud, use the Supabase project's Google provider callback URL as the authorized redirect URI. The app itself redirects Google sign-in through `/auth/callback`.
+In Google Cloud, use the Supabase project's Google provider callback URL as the authorized redirect URI:
+
+```bash
+https://aqsasynbcozkyodtxjkn.supabase.co/auth/v1/callback
+```
+
+Do not use `https://www.filthyprincesss.com/auth/callback` in Google Cloud. The app itself redirects Google sign-in through `/auth/callback` after Supabase returns.
 
 ## Password Reset Setup
 
