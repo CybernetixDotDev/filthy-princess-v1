@@ -102,7 +102,21 @@ The portal currently shows:
 - A welcome header
 - Latest enquiry status, if one exists
 - A short "what happens next" sequence
-- Placeholder private rooms for future portal content
+- Interactive private-room content tiles that open detailed modals
+
+Portal content is split between:
+
+- `lib/portal/content.ts`: Typed content records, retreat-type normalization, and What to Expect experience mappings.
+- `components/PortalContentGateways.tsx`: Client-side tile grid, accessible modal behavior, and What to Expect tabs.
+
+The What to Expect tile uses the latest enquiry's `retreat_type` field to choose the default dashboard title, teaser, and active modal tab. Current normalized values are:
+
+- `Solo` -> `solo`
+- `Couples` -> `couples`
+- `Private Group` -> `group`
+- `I am not sure yet` -> `custom`
+
+Unknown or missing retreat types fall back to a generic What to Expect tile.
 
 ## Supabase Client Files
 

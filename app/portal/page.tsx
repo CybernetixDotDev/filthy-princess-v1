@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { signOut } from "@/app/actions/auth";
+import PortalContentGateways from "@/components/PortalContentGateways";
 import { createClient } from "@/utils/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -14,14 +15,6 @@ const statusLabels: Record<string, string> = {
   declined: "This journey is not opening right now",
   closed: "Journey complete",
 };
-
-const futureRooms = [
-  "The philosophy",
-  "Meet Cally",
-  "What to expect",
-  "Preparing for the experience",
-  "Questions & boundaries",
-];
 
 export default async function PortalPage() {
   const supabase = await createClient();
@@ -118,17 +111,7 @@ export default async function PortalPage() {
         </ol>
       </section>
 
-      <section className="portal-rooms" aria-labelledby="rooms-title">
-        <h2 id="rooms-title">While you are here</h2>
-        <div className="portal-room-grid">
-          {futureRooms.map((room) => (
-            <article className="portal-room" key={room}>
-              <h3>{room}</h3>
-              <p>Coming later in the private pre-retreat journey.</p>
-            </article>
-          ))}
-        </div>
-      </section>
+      <PortalContentGateways retreatType={latestEnquiry?.retreat_type ?? null} />
     </main>
   );
 }
