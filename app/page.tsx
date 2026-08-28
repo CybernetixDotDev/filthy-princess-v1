@@ -1,9 +1,10 @@
+import Image from "next/image";
+
 import CallyIntroduction from "@/components/CallyIntroduction";
 import Closing from "@/components/Closing";
 import EnquiryForm from "@/components/EnquiryForm";
 import ExperienceSection from "@/components/ExperienceSection";
 import Hero from "@/components/Hero";
-import JourneySection from "@/components/JourneySection";
 import PrivatePortalSection from "@/components/PrivatePortalSection";
 
 export default function Page() {
@@ -11,7 +12,15 @@ export default function Page() {
     <main>
       <Hero />
       <CallyIntroduction />
-      <JourneySection />
+      <section className="landing-logo-section" aria-label="Filthy Princess">
+        <Image
+          alt="Filthy Princess"
+          className="landing-logo"
+          height={140}
+          src="/FilthyPrincessLogo.png"
+          width={420}
+        />
+      </section>
       <PrivatePortalSection />
       <ExperienceSection />
       <EnquiryForm />

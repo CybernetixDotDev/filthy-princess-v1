@@ -534,6 +534,51 @@ textarea:focus-visible,
   line-height: 1.55;
 }
 
+.landing-logo-section {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(20rem, 52vw, 38rem);
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(199, 164, 90, 0.18), transparent 25rem),
+    radial-gradient(circle at 50% 58%, rgba(111, 24, 53, 0.32), transparent 34rem),
+    linear-gradient(135deg, rgba(17, 7, 15, 0.94), rgba(36, 16, 33, 0.82));
+  padding: clamp(4rem, 10vw, 7rem) clamp(1.25rem, 4vw, 4rem);
+}
+
+.landing-logo-section::before,
+.landing-logo-section::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.landing-logo-section::before {
+  inset: 14% 16%;
+  border: 1px solid rgba(234, 213, 167, 0.13);
+  border-radius: 50%;
+  transform: rotate(-8deg);
+}
+
+.landing-logo-section::after {
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 244, 227, 0.02), transparent 28%, transparent 72%, rgba(255, 244, 227, 0.02)),
+    radial-gradient(ellipse at 50% 50%, transparent 38%, rgba(6, 2, 8, 0.32) 100%);
+}
+
+.landing-logo {
+  position: relative;
+  z-index: 1;
+  width: min(88vw, 40rem);
+  height: auto;
+  filter:
+    drop-shadow(0 2rem 4rem rgba(6, 2, 8, 0.56))
+    drop-shadow(0 0 2.6rem rgba(199, 164, 90, 0.14));
+}
+
 .portal {
   position: relative;
   border-top: 1px solid var(--line);
