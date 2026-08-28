@@ -38,6 +38,11 @@ yarn-error.log*
 
 # supabase
 supabase/.temp/
+supabase/migrations/*.sql
+
+# local project/admin notes
+docs/ADMIN_SQL.md
+docs/PROJECT_OVERVIEW.md
 
 # typescript
 *.tsbuildinfo

@@ -911,7 +911,34 @@ textarea[aria-invalid="true"] {
 }
 
 .portal-status {
+  position: relative;
   max-width: 880px;
+}
+
+.portal-status[data-state="inner-sanctum"] {
+  border-top-color: rgba(234, 213, 167, 0.34);
+  padding-inline: clamp(1rem, 3vw, 1.6rem);
+}
+
+.portal-status[data-state="inner-sanctum"]::before {
+  content: "";
+  position: absolute;
+  inset: clamp(1.2rem, 3vw, 1.8rem) auto clamp(1.2rem, 3vw, 1.8rem) 0;
+  width: 1px;
+  background: linear-gradient(
+    transparent,
+    rgba(234, 213, 167, 0.82),
+    transparent
+  );
+  box-shadow: 0 0 2rem rgba(234, 213, 167, 0.34);
+}
+
+.portal-status[data-state="inner-sanctum"] h2 {
+  text-shadow: 0 0 2.2rem rgba(199, 164, 90, 0.22);
+}
+
+.portal-status[data-state="inner-sanctum"] p:not(.section-kicker) {
+  color: rgba(255, 244, 227, 0.86);
 }
 
 .portal-status h2,
@@ -975,11 +1002,541 @@ textarea[aria-invalid="true"] {
   padding-left: 0.35rem;
 }
 
+.portal-next-copy {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 700px;
+  margin-top: 2rem;
+}
+
+.portal-next-copy p {
+  margin: 0;
+}
+
+.portal-next-copy strong {
+  color: var(--gold-soft);
+  font-weight: 500;
+}
+
+.portal-enquiry-summary {
+  padding-top: clamp(2rem, 5vw, 3.25rem);
+}
+
+.member-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border-top: 1px solid var(--line);
+  padding-block: clamp(2.5rem, 6vw, 4rem);
+}
+
+.member-callout h2 {
+  max-width: 12ch;
+  font-size: clamp(2.4rem, 5.2vw, 4.6rem);
+}
+
+.member-callout p:last-child {
+  max-width: 560px;
+}
+
+.member-offer {
+  border: 1px solid rgba(234, 213, 167, 0.24);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(199, 164, 90, 0.1), rgba(111, 24, 53, 0.16)),
+    rgba(255, 244, 227, 0.035);
+  margin-block: clamp(2rem, 5vw, 3rem);
+  padding: clamp(1.4rem, 4vw, 2rem);
+}
+
+.member-upgrade {
+  border: 1px solid rgba(234, 213, 167, 0.28);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(199, 164, 90, 0.13), rgba(111, 24, 53, 0.18)),
+    rgba(255, 244, 227, 0.045);
+  margin-block: clamp(2rem, 5vw, 3rem);
+  padding: clamp(1.4rem, 4vw, 2rem);
+}
+
+.member-upgrade span {
+  display: inline-flex;
+  margin-top: 1rem;
+  color: rgba(234, 213, 167, 0.78);
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.member-notice {
+  max-width: 700px;
+  margin-bottom: 2rem;
+}
+
+.member-modal .portal-modal-content {
+  max-width: 660px;
+}
+
+.correspondence-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.correspondence-message {
+  border: 1px solid rgba(234, 213, 167, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 244, 227, 0.045);
+  padding: 1rem;
+}
+
+.correspondence-message[data-role="admin"] {
+  border-color: rgba(234, 213, 167, 0.26);
+  background: rgba(199, 164, 90, 0.075);
+}
+
+.correspondence-message span,
+.correspondence-message time {
+  display: inline-flex;
+  margin-right: 0.65rem;
+  color: rgba(234, 213, 167, 0.78);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.correspondence-message p {
+  margin: 0.75rem 0 0;
+}
+
+.member-reply-form,
+.admin-note-form {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1.5rem;
+}
+
+.member-reply-form label,
+.admin-note-form label {
+  color: var(--ivory);
+  font-family: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype",
+    Palatino, Georgia, serif;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.member-offer-actions,
+.inner-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.inner-page {
+  min-height: 100svh;
+  padding-block: clamp(4rem, 9vw, 7rem);
+}
+
+.inner-panel {
+  max-width: 840px;
+}
+
+.inner-panel h1 {
+  max-width: 12ch;
+}
+
+.inner-detail {
+  border-top: 1px solid var(--line);
+  margin-top: clamp(2rem, 5vw, 3rem);
+  padding-top: clamp(1.5rem, 4vw, 2.25rem);
+}
+
+.inner-detail h2 {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+}
+
+.inner-detail strong {
+  display: block;
+  margin-top: 0.9rem;
+  color: var(--gold-soft);
+  font-family: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype",
+    Palatino, Georgia, serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 500;
+}
+
+.inner-interest {
+  margin-top: 2.5rem;
+}
+
+.admin-page {
+  min-height: 100svh;
+  padding-block: clamp(3rem, 7vw, 5rem);
+}
+
+.admin-header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.admin-header h1 {
+  max-width: 12ch;
+  font-size: clamp(3rem, 8vw, 6.8rem);
+}
+
+.admin-board {
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.85fr) minmax(16rem, 0.85fr) minmax(24rem, 1.65fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.admin-panel {
+  border: 1px solid rgba(234, 213, 167, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 244, 227, 0.04);
+  min-width: 0;
+  padding: 1rem;
+}
+
+.admin-panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid rgba(234, 213, 167, 0.14);
+  padding-bottom: 0.85rem;
+}
+
+.admin-panel-heading h2 {
+  font-size: 1.6rem;
+}
+
+.admin-panel-heading span {
+  color: rgba(234, 213, 167, 0.75);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.admin-list {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.admin-list-item {
+  display: grid;
+  gap: 0.4rem;
+  width: 100%;
+  border: 1px solid rgba(234, 213, 167, 0.12);
+  border-radius: 8px;
+  background: rgba(23, 8, 19, 0.52);
+  color: inherit;
+  padding: 0.9rem;
+  text-align: left;
+}
+
+.admin-list-item[data-selected="true"] {
+  border-color: rgba(234, 213, 167, 0.44);
+  background: rgba(199, 164, 90, 0.1);
+}
+
+.admin-list-item span {
+  color: var(--ivory);
+}
+
+.admin-list-item small {
+  color: rgba(234, 213, 167, 0.68);
+}
+
+.admin-list-item em {
+  display: -webkit-box;
+  overflow: hidden;
+  color: rgba(255, 244, 227, 0.58);
+  font-size: 0.86rem;
+  font-style: normal;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.admin-empty {
+  margin: 0;
+  color: rgba(255, 244, 227, 0.58);
+  font-size: 0.92rem;
+}
+
+.admin-review {
+  display: grid;
+  gap: 1.4rem;
+  margin-top: 1rem;
+}
+
+.admin-review-hero,
+.admin-control-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.25rem;
+}
+
+.admin-review-hero h3 {
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+}
+
+.admin-review-hero p {
+  margin: 0.8rem 0 0;
+}
+
+.admin-meta,
+.admin-answer-list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.admin-meta {
+  min-width: 12rem;
+}
+
+.admin-meta div,
+.admin-answer-list div,
+.admin-control-row {
+  border: 1px solid rgba(234, 213, 167, 0.12);
+  border-radius: 8px;
+  background: rgba(23, 8, 19, 0.34);
+  padding: 0.85rem;
+}
+
+.admin-meta dt,
+.admin-answer-list dt {
+  color: rgba(234, 213, 167, 0.66);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.admin-meta dd,
+.admin-answer-list dd {
+  margin: 0.35rem 0 0;
+  color: rgba(255, 244, 227, 0.82);
+  line-height: 1.6;
+}
+
+.admin-review-section {
+  border-top: 1px solid rgba(234, 213, 167, 0.14);
+  padding-top: 1.25rem;
+}
+
+.admin-review-section h4 {
+  margin: 0 0 1rem;
+  color: var(--ivory);
+  font-family: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype",
+    Palatino, Georgia, serif;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.admin-note-form p {
+  margin: 0;
+  color: rgba(255, 244, 227, 0.58);
+  font-size: 0.92rem;
+}
+
+.admin-controls {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-upgrade-alert {
+  display: block;
+  width: 100%;
+  border: 1px solid rgba(234, 213, 167, 0.28);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(199, 164, 90, 0.12), rgba(111, 24, 53, 0.14)),
+    rgba(255, 244, 227, 0.05);
+  padding: 1rem;
+  text-align: left;
+}
+
+.admin-upgrade-alert h4 {
+  margin-bottom: 0.75rem;
+}
+
+.admin-upgrade-alert p:not(.section-kicker) {
+  margin: 0;
+  color: rgba(255, 244, 227, 0.74);
+  font-size: 0.95rem;
+}
+
+.admin-upgrade-alert span {
+  display: inline-flex;
+  margin-top: 0.85rem;
+  color: rgba(234, 213, 167, 0.78);
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.admin-upgrade-button {
+  color: inherit;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.admin-upgrade-button:hover,
+.admin-upgrade-button:focus-visible {
+  border-color: rgba(234, 213, 167, 0.56);
+  background-color: rgba(255, 244, 227, 0.07);
+  transform: translateY(-1px);
+}
+
+.admin-upgrade-panel {
+  display: grid;
+  gap: 1rem;
+  border: 1px solid rgba(234, 213, 167, 0.18);
+  border-radius: 8px;
+  background: rgba(23, 8, 19, 0.36);
+  padding: 1rem;
+}
+
+.admin-payment-form {
+  display: grid;
+  gap: 0.85rem;
+  border-top: 1px solid rgba(234, 213, 167, 0.14);
+  margin-top: 0.35rem;
+  padding-top: 1rem;
+}
+
+.admin-payment-form strong {
+  display: block;
+  color: var(--gold-soft);
+  font-family: "Cormorant Garamond", "Iowan Old Style", "Palatino Linotype",
+    Palatino, Georgia, serif;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.admin-transaction-current,
+.admin-transaction-history {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-transaction-history {
+  border-top: 1px solid rgba(234, 213, 167, 0.14);
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+}
+
+.admin-transaction-history h4 {
+  margin-bottom: 0;
+}
+
+.monospace-value,
+.payment-detail-grid strong {
+  overflow-wrap: anywhere;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+.access-labels {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.access-labels span {
+  border: 1px solid rgba(234, 213, 167, 0.18);
+  border-radius: 999px;
+  color: rgba(234, 213, 167, 0.86);
+  padding: 0.45rem 0.7rem;
+  font-size: 0.78rem;
+}
+
+.admin-control-row {
+  align-items: center;
+}
+
+.admin-control-row strong,
+.admin-control-row span {
+  display: block;
+}
+
+.admin-control-row strong {
+  color: var(--ivory);
+}
+
+.admin-control-row span {
+  margin-top: 0.25rem;
+  color: rgba(255, 244, 227, 0.58);
+  font-size: 0.88rem;
+}
+
+.admin-toggle {
+  display: inline-grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+.admin-toggle input {
+  position: absolute;
+  opacity: 0;
+}
+
+.admin-toggle span {
+  border: 1px solid rgba(234, 213, 167, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 244, 227, 0.06);
+  color: rgba(255, 244, 227, 0.72);
+  min-width: 4rem;
+  padding: 0.7rem 0.85rem;
+  text-align: center;
+}
+
+.admin-toggle input:checked + span {
+  border-color: rgba(234, 213, 167, 0.58);
+  background: rgba(199, 164, 90, 0.14);
+  color: var(--gold-soft);
+}
+
+.admin-action-message {
+  margin: 0;
+}
+
 .portal-room-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 2rem;
+}
+
+.portal-footer {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid rgba(234, 213, 167, 0.12);
+  padding-block: 2rem 0;
+}
+
+.portal-upgrade-link {
+  color: rgba(234, 213, 167, 0.62);
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+.portal-upgrade-link:hover,
+.portal-upgrade-link:focus-visible {
+  color: var(--gold-soft);
 }
 
 .portal-room {
@@ -1156,6 +1713,56 @@ textarea[aria-invalid="true"] {
   display: block;
 }
 
+.portal-modal-emphasis strong {
+  color: var(--gold-soft);
+  font-size: inherit;
+  font-weight: 500;
+}
+
+.payment-instructions {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.payment-detail-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  gap: 1rem;
+}
+
+.payment-detail-grid div,
+.payment-status-details div {
+  border: 1px solid rgba(234, 213, 167, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 244, 227, 0.045);
+  padding: 1rem;
+}
+
+.payment-detail-grid span {
+  display: block;
+  color: rgba(234, 213, 167, 0.74);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.payment-detail-grid strong {
+  display: block;
+  margin-top: 0.55rem;
+  color: var(--ivory);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.payment-detail-grid button {
+  margin-top: 0.9rem;
+}
+
+.payment-status-details {
+  margin-top: 1.5rem;
+}
+
 .portal-experience-tabs {
   display: flex;
   gap: 0.55rem;
@@ -1273,6 +1880,10 @@ textarea[aria-invalid="true"] {
     grid-template-columns: 1fr;
   }
 
+  .admin-board {
+    grid-template-columns: 1fr;
+  }
+
   .portal-room-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1326,6 +1937,15 @@ textarea[aria-invalid="true"] {
     text-align: center;
   }
 
+  .member-callout,
+  .admin-review-hero,
+  .admin-control-row,
+  .member-offer-actions,
+  .inner-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
   .identity-note {
     padding-left: 1.25rem;
   }
@@ -1344,11 +1964,13 @@ textarea[aria-invalid="true"] {
 
   .access-switch,
   .portal-details,
-  .portal-room-grid {
+  .portal-room-grid,
+  .payment-detail-grid {
     grid-template-columns: 1fr;
   }
 
-  .portal-header {
+  .portal-header,
+  .admin-header {
     flex-direction: column;
   }
 

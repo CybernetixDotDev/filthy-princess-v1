@@ -18,9 +18,10 @@ Required environment variables:
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=
 NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
+INNER_SANCTUM_ETH_WALLET_ADDRESS=
 ```
 
-Do not add a service role key to the browser or any `NEXT_PUBLIC_` variable.
+Do not add a service role key, private wallet key, seed phrase, or recovery phrase to the browser or any `NEXT_PUBLIC_` variable.
 
 ## Useful Commands
 
@@ -32,3 +33,5 @@ npm run build
 ## Documentation
 
 See [docs/PROJECT_OVERVIEW.md](docs/PROJECT_OVERVIEW.md) for the current architecture, user flow, Supabase schema, and next steps.
+
+Manual admin promotion SQL is documented in [docs/ADMIN_SQL.md](docs/ADMIN_SQL.md).

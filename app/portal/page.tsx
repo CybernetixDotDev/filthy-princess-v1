@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { signOut } from "@/app/actions/auth";
 import PortalContentGateways from "@/components/PortalContentGateways";
+import MemberWorkflowPanel from "@/components/portal/MemberWorkflowPanel";
 import { createClient } from "@/utils/supabase/server";
 
 export const dynamic = "force-dynamic";
@@ -43,11 +44,66 @@ export default async function PortalPage() {
       .maybeSingle(),
     supabase
       .from("retreat_enquiries")
-      .select("status, submitted_at, retreat_type, preferred_timing")
+      .select("id, status, submitted_at, retreat_type, preferred_timing")
       .eq("user_id", userId)
       .order("submitted_at", { ascending: false })
       .limit(1)
       .maybeSingle(),
+  ]);
+
+  const [
+    { data: entitlement },
+    { data: membershipOffer },
+    { data: conversation },
+    { data: innerSanctumRequest },
+  ] = await Promise.all([
+    supabase
+      .from("user_entitlements")
+      .select("is_user, is_admin, membership_accepted, inner_sanctum_access")
+      .eq("user_id", userId)
+      .maybeSingle(),
+    supabase
+      .from("membership_offers")
+      .select("id, status, created_at, responded_at")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    latestEnquiry
+      ? supabase
+          .from("conversations")
+          .select("id, updated_at")
+          .eq("enquiry_id", latestEnquiry.id)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
+    supabase
+      .from("inner_sanctum_requests")
+      .select("id, status, created_at, updated_at")
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+  ]);
+
+  const [{ data: messages }, { data: innerSanctumTransaction }] = await Promise.all([
+    conversation
+      ? supabase
+          .from("conversation_messages")
+          .select("id, sender_role, body, created_at")
+          .eq("conversation_id", conversation.id)
+          .order("created_at", { ascending: true })
+      : Promise.resolve({ data: [] }),
+    innerSanctumRequest
+      ? supabase
+          .from("inner_sanctum_transactions")
+          .select(
+            "id, status, usd_amount, expected_eth_amount, receiving_wallet_address, user_reported_paid_at, user_supplied_transaction_hash, transaction_hash, payment_confirmed_at, access_granted_at, created_at",
+          )
+          .eq("upgrade_request_id", innerSanctumRequest.id)
+          .order("created_at", { ascending: false })
+          .limit(1)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
   ]);
 
   const displayName =
@@ -68,28 +124,30 @@ export default async function PortalPage() {
       </header>
 
       {latestEnquiry ? (
-        <section className="portal-status" aria-labelledby="status-title">
-          <p className="section-kicker">Retreat enquiry</p>
-          <h2 id="status-title">{statusLabels[latestEnquiry.status]}</h2>
-          <p>
-            Your enquiry has been safely received. Filthy Princess retreats are
-            intentionally intimate and enquiries are considered personally
-            rather than processed as automatic bookings.
-          </p>
-          <p>
-            We may reach out with a few questions as the journey develops.
-          </p>
-          <dl className="portal-details">
-            <div>
-              <dt>Retreat type</dt>
-              <dd>{latestEnquiry.retreat_type}</dd>
-            </div>
-            <div>
-              <dt>Timing</dt>
-              <dd>{latestEnquiry.preferred_timing || "Still unfolding"}</dd>
-            </div>
-          </dl>
-        </section>
+        <>
+          <MemberWorkflowPanel
+            entitlement={entitlement}
+            membershipOffer={membershipOffer}
+            conversation={conversation}
+            messages={messages ?? []}
+            innerSanctumRequest={innerSanctumRequest}
+            innerSanctumTransaction={innerSanctumTransaction}
+          />
+          <section className="portal-status portal-enquiry-summary" aria-labelledby="enquiry-summary-title">
+            <p className="section-kicker">Retreat enquiry</p>
+            <h2 id="enquiry-summary-title">{statusLabels[latestEnquiry.status]}</h2>
+            <dl className="portal-details">
+              <div>
+                <dt>Retreat type</dt>
+                <dd>{latestEnquiry.retreat_type}</dd>
+              </div>
+              <div>
+                <dt>Timing</dt>
+                <dd>{latestEnquiry.preferred_timing || "Still unfolding"}</dd>
+              </div>
+            </dl>
+          </section>
+        </>
       ) : (
         <section className="portal-status" aria-labelledby="ready-title">
           <p className="section-kicker">Private space</p>
@@ -103,15 +161,35 @@ export default async function PortalPage() {
 
       <section className="portal-next" aria-labelledby="next-title">
         <h2 id="next-title">What happens next</h2>
-        <ol>
-          <li>Your enquiry is received.</li>
-          <li>It will be personally considered.</li>
-          <li>We may ask for more information.</li>
-          <li>If the experience feels aligned, the next part opens.</li>
-        </ol>
+        <div className="portal-next-copy">
+          <p>Your enquiry has been received.</p>
+          <p>It will be personally considered.</p>
+          <p>
+            We may reach out with a few questions if we would like to understand
+            you better.
+          </p>
+          <p>
+            If the experience feels aligned, the next part of your journey will
+            open.
+          </p>
+          <p>
+            <strong>
+              Come back soon to see whether your enquiry has been considered.
+            </strong>
+          </p>
+        </div>
       </section>
 
       <PortalContentGateways retreatType={latestEnquiry?.retreat_type ?? null} />
+
+      {entitlement?.membership_accepted &&
+      !entitlement.inner_sanctum_access ? (
+        <footer className="portal-footer">
+          <Link className="portal-upgrade-link" href="/access/inner-sanctum">
+            Upgrade Membership
+          </Link>
+        </footer>
+      ) : null}
     </main>
   );
 }
