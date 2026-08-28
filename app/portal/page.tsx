@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 
 import { signOut } from "@/app/actions/auth";
@@ -112,9 +113,18 @@ export default async function PortalPage() {
   return (
     <main className="portal-page section-shell">
       <header className="portal-header">
-        <div>
-          <p className="section-kicker">Private portal</p>
-          <h1>Welcome, {displayName}</h1>
+        <div className="portal-brand">
+          <Image
+            alt="Filthy Princess"
+            className="portal-logo"
+            height={140}
+            src="/FilthyPrincessLogo.png"
+            width={420}
+          />
+          <div>
+            <p className="section-kicker">Private portal</p>
+            <h1>Welcome, {displayName}</h1>
+          </div>
         </div>
         <form action={signOut}>
           <button className="quiet-button" type="submit">

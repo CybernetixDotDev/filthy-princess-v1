@@ -8,6 +8,10 @@ export type AccessResult =
   | { status: "check-email"; message: string }
   | { status: "error"; message: string };
 
+export type PasswordResetRequestResult =
+  | { status: "success"; message: string }
+  | { status: "error"; message: string };
+
 export async function signInWithPassword(
   email: string,
   password: string,
@@ -66,6 +70,34 @@ export async function createPrivateAccess({
     }
 
     return { status: "success" };
+  } catch (error) {
+    return { status: "error", message: getSupabaseErrorMessage(error) };
+  }
+}
+
+export async function requestPasswordReset(
+  email: string,
+  redirectTo: string,
+): Promise<PasswordResetRequestResult> {
+  try {
+    const supabase = await createClient();
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo,
+    });
+
+    if (error) {
+      console.error("Password reset request failed.", error.message);
+      return {
+        status: "error",
+        message: "We couldn't send the reset link right now. Please try again.",
+      };
+    }
+
+    return {
+      status: "success",
+      message:
+        "If an account exists for that email address, a password reset link has been sent.",
+    };
   } catch (error) {
     return { status: "error", message: getSupabaseErrorMessage(error) };
   }

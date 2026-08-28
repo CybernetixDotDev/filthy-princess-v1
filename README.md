@@ -23,6 +23,25 @@ INNER_SANCTUM_ETH_WALLET_ADDRESS=
 
 Do not add a service role key, private wallet key, seed phrase, or recovery phrase to the browser or any `NEXT_PUBLIC_` variable.
 
+## Google OAuth Setup
+
+Enable Google in Supabase Dashboard -> Authentication -> Providers -> Google, then store the Google OAuth client ID and secret there. Do not add Google secrets to this app's environment variables.
+
+Add these app redirect URLs in Supabase Authentication URL Configuration:
+
+```bash
+http://localhost:3000/auth/callback
+http://localhost:3000/auth/confirm
+https://<your-production-domain>/auth/callback
+https://<your-production-domain>/auth/confirm
+```
+
+In Google Cloud, use the Supabase project's Google provider callback URL as the authorized redirect URI. The app itself redirects Google sign-in through `/auth/callback`.
+
+## Password Reset Setup
+
+Password reset emails redirect through `/auth/confirm` and then land on `/access/reset-password`. Ensure the local and production `/auth/confirm` URLs above are allowed in Supabase.
+
 ## Useful Commands
 
 ```bash

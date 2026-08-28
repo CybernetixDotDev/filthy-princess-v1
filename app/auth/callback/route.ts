@@ -1,4 +1,3 @@
-import { EmailOtpType } from "@supabase/supabase-js";
 import { NextRequest, NextResponse } from "next/server";
 
 import { createClient } from "@/utils/supabase/server";
@@ -15,30 +14,19 @@ export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url);
   const code = requestUrl.searchParams.get("code");
   const next = getSafeNextPath(requestUrl.searchParams.get("next"));
-  const tokenHash = requestUrl.searchParams.get("token_hash");
-  const type = requestUrl.searchParams.get("type") as EmailOtpType | null;
-  const supabase = await createClient();
 
   if (code) {
+    const supabase = await createClient();
     const { error } = await supabase.auth.exchangeCodeForSession(code);
 
     if (!error) {
       return NextResponse.redirect(new URL(next, requestUrl.origin));
     }
+
+    console.error("OAuth code exchange failed.", error.message);
   }
 
-  if (tokenHash && type) {
-    const { error } = await supabase.auth.verifyOtp({
-      type,
-      token_hash: tokenHash,
-    });
-
-    if (!error) {
-      return NextResponse.redirect(new URL(next, requestUrl.origin));
-    }
-  }
-
-  const message = type === "recovery" ? "recovery-failed" : "confirmation-failed";
-
-  return NextResponse.redirect(new URL(`/access?message=${message}`, requestUrl.origin));
+  return NextResponse.redirect(
+    new URL("/access?message=oauth-failed", requestUrl.origin),
+  );
 }
